@@ -10,84 +10,132 @@
 Hiện nay, các công trình xây dựng ngày càng có quy mô lớn và độ cao phức tạp, đi kèm với đó là những rủi ro tiềm ẩn về an toàn lao động và chất lượng kết cấu. Các vấn đề như độ rung lắc bất thường, giàn giáo bị nghiêng, hay việc kiểm soát nhiệt độ/độ ẩm để bảo dưỡng bê tông cần được giám sát chặt chẽ 24/7. Tuy nhiên, việc giám sát thủ công thường tốn kém và không báo cáo kịp thời khi sự cố xảy ra.
 
 **Giải pháp:**
-Dự án **Smart Construction Monitor** là một thiết bị IoT nhỏ gọn, thông minh được gắn trực tiếp lên các kết cấu (giàn giáo, cốp pha, cột trụ). Thiết bị có khả năng giám sát liên tục độ nghiêng, độ rung chấn và môi trường, từ đó đưa ra cảnh báo sớm giúp ngăn chặn tai nạn và đảm bảo chất lượng công trình.
+Dự án **Smart Construction Monitor** là thiết bị IoT nhỏ gọn được gắn trực tiếp lên các kết cấu (giàn giáo, cốp pha, cột trụ). Thiết bị giám sát liên tục độ nghiêng, độ rung chấn và môi trường, gửi dữ liệu thời gian thực về trung tâm điều hành và phát cảnh báo ngay lập tức giúp ngăn chặn tai nạn.
 
 ## 2. Chức năng chính (Key Features)
 
 - 📐 **Giám sát kết cấu (Structural Health):**
-  - Đo **Góc nghiêng (Tilt):** Phát hiện giàn giáo hoặc cốp pha bị nghiêng vượt mức cho phép.
-  - Đo **Độ rung (Vibration):** Phát hiện rung chấn bất thường do gió lớn hoặc mất ổn định kết cấu.
+  - **Góc nghiêng (Tilt):** Đo độ nghiêng trục X/Y để phát hiện giàn giáo bị lệch tâm, lún móng.
+  - **Độ rung (Vibration):** Phát hiện rung chấn mạnh do gió bão hoặc máy móc va đập.
 - 🌡️ **Giám sát môi trường (Environment):**
-  - Theo dõi **Nhiệt độ & Độ ẩm:** Hỗ trợ giám sát quá trình đóng rắn/bảo dưỡng của bê tông hoặc môi trường làm việc của công nhân.
-  - Phát hiện **Khí thải/Cháy nổ:** Cảnh báo khi nồng độ khói bụi hoặc khí Gas tăng cao tại công trường.
-- 🚨 **Cảnh báo đa tầng:**
-  - **Tại chỗ:** Còi Buzzer hú ngay lập tức khi phát hiện nghiêng/rung lắc mạnh.
-  - **Từ xa:** Gửi cảnh báo khẩn cấp về trung tâm điều hành (Dashboard) qua Internet.
-- 💾 **Lưu trữ an toàn:** Ghi dữ liệu vào thẻ nhớ SD (Log file) để phân tích nguyên nhân nếu có sự cố xảy ra (hoạt động như hộp đen công trình).
-- 📲 **Cập nhật không dây (OTA):** Bảo trì và nâng cấp phần mềm từ xa mà không cần tháo gỡ thiết bị khỏi vị trí lắp đặt trên cao.
+  - **Bê tông:** Giám sát nhiệt độ/độ ẩm để đảm bảo quy trình đóng rắn (Curing) của bê tông.
+  - **An toàn:** Phát hiện nồng độ khí Gas/Khói vượt ngưỡng cho phép.
+- 🚨 **Cảnh báo đa tầng (Multi-level Alert):**
+  - **Tại chỗ:** Còi Buzzer và Đèn LED cảnh báo ngay khi phát hiện nguy hiểm.
+  - **Từ xa:** Gửi tín hiệu báo động về Dashboard Node-RED qua Internet.
+- ☁️ **Giám sát thực (Real-time Monitoring):** Gửi gói tin dữ liệu mỗi **1 giây/lần** giúp vẽ biểu đồ chi tiết và phản ứng tức thì.
+- 📲 **Cập nhật không dây (OTA):** Nạp firmware từ xa qua WiFi hoặc Bluetooth (BLE) mà không cần tháo thiết bị.
 
 ## 3. Phần cứng sử dụng (Hardware)
 
-| Thành phần | Chức năng | Ghi chú |
-| :--- | :--- | :--- |
-| **ESP32 DevKit V1** | Vi điều khiển trung tâm, WiFi, BLE | Xử lý dữ liệu & Gửi tin |
-| **MPU6050** | Cảm biến Gia tốc & Con quay hồi chuyển | Đo góc nghiêng X/Y, đo độ rung |
-| **DHT11 / DHT22** | Cảm biến Nhiệt độ, Độ ẩm | Giám sát môi trường/bê tông |
-| **MQ-2** | Cảm biến Khí gas/Khói | Phát hiện nguy cơ cháy nổ |
-| **Micro SD Module** | Module thẻ nhớ SPI | Lưu trữ dữ liệu Offline |
-| **Active Buzzer** | Còi báo động | Cảnh báo âm thanh tại chỗ |
-| **Nguồn** | Pin dự phòng hoặc Adapter 5V | Cấp nguồn ổn định |
+| Thành phần | Chức năng |
+| :--- | :--- |
+| **ESP32 (S3/S2)** | Vi điều khiển trung tâm, xử lý WiFi/BLE |
+| **MPU6050** | Cảm biến Gia tốc & Con quay hồi chuyển (Đo nghiêng/rung) |
+| **DHT11** | Cảm biến Nhiệt độ, Độ ẩm |
+| **MQ-2** | Cảm biến Khí Gas/Khói |
+| **Active Buzzer** | Còi báo động âm thanh |
+| **2 x LEDs** | Đèn báo trạng thái (Warning/Critical) |
+| **Nguồn** | 5V DC (Pin dự phòng hoặc Adapter) |
 
 ## 4. Sơ đồ kết nối (Pinout)
 
+<img width="799" height="723" alt="Screenshot 2025-12-11 212946" src="https://github.com/user-attachments/assets/ffbd28e2-c769-48f9-8492-d4af095a5c11" />
+
 | Thiết bị | Chân thiết bị | ESP32 GPIO | Giao tiếp |
 | :--- | :--- | :--- | :--- |
-| **MPU6050** | SDA | 21 | I2C |
-| | SCL | 22 | I2C |
-| **SD Card** | CS | 5 | SPI (VSPI) |
-| | MOSI | 23 | SPI (VSPI) |
-| | MISO | 19 | SPI (VSPI) |
-| | CLK | 18 | SPI (VSPI) |
-| **DHT11** | DATA | 4 | Digital |
-| **MQ-2** | AO (Analog) | 35 | Analog (ADC1) |
-| **Buzzer** | VCC/SIG | 32 | Digital Out |
-| **LED Status** | Anode | 2 | Digital Out |
-| **OTA Button** | Pin 1 | 0 (BOOT) | Input Pullup |
+| **MPU6050** | SDA | 5 | I2C |
+| | SCL | 7 | I2C |
+| **DHT11** | DATA | 40 | Digital |
+| **Gas Sensor**| AO (Analog) | 8 | Analog |
+| **Buzzer** | VCC/SIG | 6 | Digital Out |
+| **LED 1** | Anode (+) | 35 | Digital Out |
+| **LED 2** | Anode (+) | 36 | Digital Out |
+| **Button** | BOOT | 0 | Input |
 
 ## 5. Phần mềm & Công nghệ
 
-- **Firmware:** C++ trên nền tảng PlatformIO.
-  - Sử dụng **Kalman Filter** hoặc **Complementary Filter** để lọc nhiễu dữ liệu từ MPU6050, giúp đo góc nghiêng chính xác.
-- **Giao thức:** MQTT (gửi dữ liệu thời gian thực).
-- **Dashboard:** Node-RED (Hiển thị biểu đồ rung, đồng hồ đo góc nghiêng, trạng thái an toàn).
-- **OTA:** ArduinoOTA (WiFi) và Custom BLE OTA (Bluetooth).
+- **Firmware:** C++ (PlatformIO).
+  - Thuật toán: Bộ lọc (Filter) để làm mượt dữ liệu góc nghiêng.
+- **Giao thức:** MQTT (truyền tải JSON payload 1s/lần).
+- **Backend/Frontend:** Node-RED Dashboard.
+- **OTA:** Custom BLE Service.
 
 ## 6. Luồng hoạt động (Workflow)
 
-1.  **Thu thập:** ESP32 đọc dữ liệu từ MPU6050 (Gia tốc, Góc quay) và DHT11/MQ-2 cứ 100ms/lần.
-2.  **Tính toán:**
-    - Tính toán góc nghiêng hiện tại so với trục thẳng đứng.
-    - Tính toán biên độ rung động.
-3.  **So sánh ngưỡng an toàn (Safety Logic):**
-    - Nếu `Góc nghiêng > 15 độ` HOẶC `Độ rung > Ngưỡng A` $\rightarrow$ **NGUY HIỂM**.
-    - Kích hoạt Buzzer.
-    - Gửi gói tin `ALARM` ngay lập tức lên Server.
-4.  **Lưu trữ & Báo cáo:**
-    - Ghi thông số vào thẻ nhớ SD (chu kỳ 1s).
-    - Gửi dữ liệu thông thường lên Dashboard (chu kỳ 5s) để vẽ biểu đồ giám sát.
+Hệ thống hoạt động theo chu kỳ thời gian thực (Real-time Loop):
 
-## 7. Kết quả mong đợi
+1.  **Thu thập (Sensing):** Đọc dữ liệu từ MPU6050, DHT11, Gas Sensor liên tục.
+2.  **Phân tích & So sánh ngưỡng (Logic):**
 
-- Phát hiện sớm hiện tượng lún, nghiêng giàn giáo trước khi sập đổ.
-- Giám sát được điều kiện nhiệt độ giúp đảm bảo chất lượng bê tông.
-- Hệ thống hoạt động bền bỉ trong môi trường công trường (bụi, rung).
-- Cung cấp dữ liệu minh bạch cho chủ đầu tư và giám sát an toàn.
+    * **Mức cảnh báo (Warning):** Đèn LED sáng
+        - Góc nghiêng > `10.0°`
+        - Độ rung > `0.5 G`
+        - Khí Gas > `300 PPM`
+    * **Mức nguy hiểm (Critical):** **Còi Buzzer hú + LED nháy**
+        - Góc nghiêng > `15.0°` (Nguy cơ đổ sập)
+        - Độ rung > `1.0 G`
+        - Khí Gas > `800 PPM` (Nguy cơ cháy/ngạt)
+    * **Giám sát Bê tông:**
+        - Cảnh báo nếu Nhiệt độ > `35°C` hoặc Độ ẩm < `50%`.
+
+3.  **Truyền tải (Telemetry):**
+    - Đóng gói toàn bộ thông số và trạng thái vào JSON.
+    - Publish lên MQTT Broker với chu kỳ **1 giây**.
+
+4.  **Hiển thị & Lưu trữ (Server-side):**
+    - Node-RED vẽ biểu đồ theo thời gian thực.
+    - Tự động ghi lại nhật ký (Log History) khi có sự kiện Warning/Critical xảy ra.
+
+## 7. Giao diện và Kết quả Thực nghiệm (Interface & Results)
+
+Hệ thống cung cấp Dashboard trực quan giúp kỹ sư giám sát toàn diện tình trạng công trình.
+
+1. **Bảng điều khiển trung tâm (Main Dashboard)**
+Tổng quan các thông số quan trọng (Rung, Nghiêng, Môi trường).
+<img width="100%" alt="Main Dashboard" src="https://github.com/user-attachments/assets/e9c22302-a90b-400c-bce4-2877ad6482e3" />
+
+---
+
+2. **Giám sát trạng thái kết nối**
+Hệ thống tự động báo lỗi khi mất kết nối WiFi hoặc mất nguồn thiết bị.
+<p align="center">
+  <img width="80%" alt="Connection Lost" src="https://github.com/user-attachments/assets/e6a4d4f8-ec48-4d7c-bba1-2763ecc9f8bf" />
+</p>
+
+---
+
+3. **Cảnh báo an toàn (Safety Alert)**
+Khi **Góc nghiêng vượt 15°**, hệ thống lập tức báo động đỏ trên giao diện để cảnh báo nguy cơ sập giàn giáo.
+<img width="100%" alt="Tilt Warning" src="https://github.com/user-attachments/assets/fb9d5d69-2bde-4ddf-865b-b82bf597c997" />
+
+---
+
+4. **Chi tiết thông số (Detailed Monitoring)**
+Thanh điều hướng giúp truy cập các dữ liệu chuyên sâu.
+<p align="left">
+  <img width="250" alt="Navigation Menu" src="https://github.com/user-attachments/assets/16ebfc71-91c7-4e95-9618-ebda086b67ea" />
+</p>
+
+* **Tab Sensor:** Theo dõi biểu đồ Nhiệt độ, Độ ẩm, Khí Gas.
+<img width="100%" alt="Sensor Detail" src="https://github.com/user-attachments/assets/34a46ca4-9e8e-4094-b5ef-ed4b118d974a" />
+
+* **Tab Motion:** Phân tích góc nghiêng (Roll/Pitch) và độ rung tổng hợp.
+<img width="100%" alt="Motion Detail" src="https://github.com/user-attachments/assets/a68a5f23-a5f5-4899-87da-aac4eb70c62f" />
+* **Tab Alert:** 
+5. **Quản lý Cảnh báo & Hệ thống (Alerts & System Control)**
+Tab **Alerts** đóng vai trò là trung tâm điều hành và bảo trì hệ thống, bao gồm 3 chức năng cốt lõi:
+
+* **Điều khiển Còi báo (Alarm Control):** Tính năng can thiệp thủ công (Manual Override). Người vận hành có thể chủ động **BẬT** còi (để diễn tập sơ tán hoặc cảnh báo khẩn cấp) hoặc **TẮT** còi (sau khi đã xử lý xong sự cố) trực tiếp từ giao diện web.
+* **Nhật ký Sự cố (Alert History):** Thay thế cho thẻ nhớ vật lý, bảng này tự động lưu trữ lịch sử các lần vi phạm an toàn (Rung/Nghiêng/Gas) kèm mốc thời gian và mức độ nghiêm trọng (Severity). Giúp kỹ sư dễ dàng truy xuất dữ liệu quá khứ.
+* **Cập nhật Bảo mật (Secure OTA):** Khu vực nạp Firmware từ xa được bảo vệ bằng mã xác nhận, đảm bảo chỉ người có thẩm quyền mới được phép can thiệp vào hệ thống.
+  
+<img width="1871" height="862" alt="Screenshot 2025-12-12 002051" src="https://github.com/user-attachments/assets/fc957912-fda6-4514-9b80-6e52e7921d8e" />
 
 ## 8. Hướng dẫn OTA
 
-Do thiết bị thường lắp ở vị trí cao, khó tiếp cận, tính năng OTA rất quan trọng:
-- **WiFi OTA:** Khi công trường có phủ sóng WiFi, nạp code trực tiếp qua IP thiết bị.
-- **BLE OTA:** Khi mất mạng, kỹ sư đứng dưới đất dùng điện thoại kết nối Bluetooth để nạp firmware mới hoặc thay đổi ngưỡng cảnh báo an toàn.
+- **WiFi OTA:** Cập nhật qua mạng nội bộ khi thiết bị kết nối ổn định.
+- **BLE OTA:** Giải pháp dự phòng khi mất mạng. Kỹ sư có thể dùng điện thoại kết nối Bluetooth để nạp firmware hoặc tinh chỉnh ngưỡng cảnh báo.
 
 ## 9. Tác giả
 
