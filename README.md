@@ -50,6 +50,11 @@ Dự án **Smart Construction Monitor** là thiết bị IoT nhỏ gọn đượ
 | **LED 2** | Anode (+) | 36 | Digital Out |
 | **Button** | BOOT | 0 | Input |
 
+Hình ảnh thực tế:
+
+<img width="1908" height="859" alt="image" src="https://github.com/user-attachments/assets/8da1aa67-932b-482a-b741-d6ea6c5b52ba" />
+
+
 ## 5. Phần mềm & Công nghệ
 
 - **Firmware:** C++ (PlatformIO).
@@ -132,7 +137,6 @@ Thanh điều hướng giúp truy cập các dữ liệu chuyên sâu.
 * ***Cập nhật Bảo mật (Secure OTA):*** Khu vực nạp Firmware từ xa được bảo vệ bằng mã xác nhận, đảm bảo chỉ người có thẩm quyền mới được phép can thiệp vào hệ thống.
   
 <img width="1907" height="866" alt="Screenshot 2025-12-11 201014" src="https://github.com/user-attachments/assets/d806a2a1-7d85-42cd-b9c6-ec86c7434208" />
-
 
 ## 8. Hướng dẫn OTA (Cập nhật từ xa)
 
