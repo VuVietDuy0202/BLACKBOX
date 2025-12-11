@@ -106,10 +106,15 @@ Hệ thống tự động báo lỗi khi mất kết nối WiFi hoặc mất ngu
 ---
 
 3. **Cảnh báo an toàn (Safety Alert)**
-Khi **Góc nghiêng vượt 15°**, hệ thống lập tức báo động đỏ trên giao diện để cảnh báo nguy cơ sập giàn giáo.
+Đây là tính năng quan trọng nhất. Khi cảm biến phát hiện **Chỉ số vượt ngưỡng an toàn** (ví dụ: góc nghiêng > 15°, nồng độ gas > 300 ppm), giao diện lập tức phát cảnh báo, hiển thị vị trí và thông số vi phạm để kích hoạt quy trình sơ tán hoặc khắc phục.
+
+Góc nghiêng > 15°
 <img width="100%" alt="Tilt Warning" src="https://github.com/user-attachments/assets/fb9d5d69-2bde-4ddf-865b-b82bf597c997" />
 
 ---
+
+Nồng độ gas > 300 ppm
+<img width="1880" height="902" alt="Screenshot 2025-12-11 202640" src="https://github.com/user-attachments/assets/4ffa9e6c-f19c-4b82-9454-8329fca0c1c4" />
 
 4. **Chi tiết thông số (Detailed Monitoring)**
 Thanh điều hướng giúp truy cập các dữ liệu chuyên sâu.
@@ -122,22 +127,20 @@ Thanh điều hướng giúp truy cập các dữ liệu chuyên sâu.
 
 * **Tab Motion:** Phân tích góc nghiêng (Roll/Pitch) và độ rung tổng hợp.
 <img width="100%" alt="Motion Detail" src="https://github.com/user-attachments/assets/a68a5f23-a5f5-4899-87da-aac4eb70c62f" />
-* **Tab Alert:** 
-5. **Quản lý Cảnh báo & Hệ thống (Alerts & System Control)**
-Tab **Alerts** đóng vai trò là trung tâm điều hành và bảo trì hệ thống, bao gồm 3 chức năng cốt lõi:
 
-* **Điều khiển Còi báo (Alarm Control):** Tính năng can thiệp thủ công (Manual Override). Người vận hành có thể chủ động **BẬT** còi (để diễn tập sơ tán hoặc cảnh báo khẩn cấp) hoặc **TẮT** còi (sau khi đã xử lý xong sự cố) trực tiếp từ giao diện web.
-* **Nhật ký Sự cố (Alert History):** Thay thế cho thẻ nhớ vật lý, bảng này tự động lưu trữ lịch sử các lần vi phạm an toàn (Rung/Nghiêng/Gas) kèm mốc thời gian và mức độ nghiêm trọng (Severity). Giúp kỹ sư dễ dàng truy xuất dữ liệu quá khứ.
-* **Cập nhật Bảo mật (Secure OTA):** Khu vực nạp Firmware từ xa được bảo vệ bằng mã xác nhận, đảm bảo chỉ người có thẩm quyền mới được phép can thiệp vào hệ thống.
+* **Tab Alerts** đóng vai trò là trung tâm điều hành và bảo trì hệ thống, bao gồm 3 chức năng cốt lõi:
+
+* ***Điều khiển Còi báo (Alarm Control):*** Tính năng can thiệp thủ công (Manual Override). Người vận hành có thể chủ động **BẬT** còi (để diễn tập sơ tán hoặc cảnh báo khẩn cấp) hoặc **TẮT** còi (sau khi đã xử lý xong sự cố) trực tiếp từ giao diện web.
+* ***Nhật ký Sự cố (Alert History):*** Thay thế cho thẻ nhớ vật lý, bảng này tự động lưu trữ lịch sử các lần vi phạm an toàn (Rung/Nghiêng/Gas) kèm mốc thời gian và mức độ nghiêm trọng (Severity). Giúp kỹ sư dễ dàng truy xuất dữ liệu quá khứ.
+* ***Cập nhật Bảo mật (Secure OTA):*** Khu vực nạp Firmware từ xa được bảo vệ bằng mã xác nhận, đảm bảo chỉ người có thẩm quyền mới được phép can thiệp vào hệ thống.
   
 <img width="1871" height="862" alt="Screenshot 2025-12-12 002051" src="https://github.com/user-attachments/assets/fc957912-fda6-4514-9b80-6e52e7921d8e" />
 
-## 8. Hướng dẫn OTA
+## 8. Hướng dẫn OTA (Cập nhật từ xa)
 
-- **WiFi OTA:** Cập nhật qua mạng nội bộ khi thiết bị kết nối ổn định.
-- **BLE OTA:** Giải pháp dự phòng khi mất mạng. Kỹ sư có thể dùng điện thoại kết nối Bluetooth để nạp firmware hoặc tinh chỉnh ngưỡng cảnh báo.
+Hệ thống áp dụng kiến trúc **Dual-Partition** (Phân vùng Factory & App) giúp thiết bị không bao giờ bị hỏng (Anti-brick) ngay cả khi quá trình cập nhật gặp lỗi.
 
-## 9. Tác giả
-
-- **Duy**
-- Năm thực hiện: 2025
+- **BLE OTA (Quy trình an toàn):**
+  1. **Kích hoạt:** Truy cập Dashboard, nhập **Mã xác nhận (Password)** để thiết bị khởi động lại vào phân vùng **Factory Mode** (chế độ chờ nạp chuyên biệt).
+  2. **Nạp Firmware:** Sử dụng ứng dụng `app_ble_v1.py` trên máy tính để kết nối Bluetooth và gửi file firmware `.bin` mới.
+  3. **Hoàn tất:** Sau khi nhận đủ dữ liệu, hệ thống tự động xác thực và chuyển khởi động về phân vùng Ứng dụng (Application) mới.
