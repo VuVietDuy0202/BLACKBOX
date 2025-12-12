@@ -146,3 +146,5 @@ Hệ thống áp dụng kiến trúc **Dual-Partition** (Phân vùng Factory & A
   1. **Kích hoạt:** Truy cập Dashboard, nhập **Mã xác nhận (Password)** để thiết bị khởi động lại vào phân vùng **Factory Mode** (chế độ chờ nạp chuyên biệt).
   2. **Nạp Firmware:** Sử dụng ứng dụng `app_ble_v1.py` trên máy tính để kết nối Bluetooth và gửi file firmware `.bin` mới.
   3. **Hoàn tất:** Sau khi nhận đủ dữ liệu, hệ thống tự động xác thực và chuyển khởi động về phân vùng Ứng dụng (Application) mới.
+ 
+## [**Video**](https://youtu.be/KjTIV0YINLk?si=6T5F9wh5R5rctHXQ)
