@@ -21,7 +21,7 @@ Dự án **Smart Construction Monitor** là thiết bị IoT nhỏ gọn đượ
   - **Tại chỗ:** Còi Buzzer và Đèn LED cảnh báo ngay khi phát hiện nguy hiểm.
   - **Từ xa:** Gửi tín hiệu báo động về Dashboard Node-RED qua Internet.
 - **Giám sát thực (Real-time Monitoring):** Gửi gói tin dữ liệu mỗi **1 giây/lần** giúp vẽ biểu đồ chi tiết và phản ứng tức thì.
-- **Cập nhật không dây (OTA):** Nạp firmware từ xa qua WiFi hoặc Bluetooth (BLE) mà không cần tháo thiết bị.
+- **Cập nhật không dây (OTA):** Nạp firmware từ xa qua Bluetooth (BLE) mà không cần tháo thiết bị.
 
 ## 3. Phần cứng sử dụng (Hardware)
 
